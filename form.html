@@ -1,0 +1,54 @@
+<style type="text/css">
+    .uc {text-transform: uppercase;}
+</style>
+
+<h2 class="uc">Questions? Comments? Concerns? We can help.</h2>
+
+<p>Reach us through one of the online forms below, or call Consumer Relations at 715-466-6608.</p>
+
+<select id="selection" name="selection" class="form-selector form-control">
+    <option value="" class="uc" disabled selected>Please Select...</option>
+    <option value="issue" class="uc">I have an issue with a product I purchased.</option>
+    <option value="question" class="uc">I have a general question about a product.</option>
+    <option value="feedback" class="uc">I would like to give feedback.</option>
+</select>
+
+<hr>
+
+<div class="col-md-8">
+    <form id="issue">
+        <div class="form-group">
+            <p>We're here to help. Please provide us with as many details about the product as you can.</p>
+            <p>All fields are required.</p>
+        </div>
+        <div class="form-group">
+            <label for="upc">Last 6 digits of UPC code</label>
+            <input class="form-control" type="text" name="upc" maxlength="6">
+        </div>
+        <div class="form-group">
+            <label for="bestBy">Best By Date</label>
+            <input class="form-control" type="date" name="bestBy">
+        </div>
+        <div class="form-group">
+            <label for="batch">Batch Number</label>
+            <input class="form-control" type="text" name="batch">
+        </div>
+    </form>
+</div>
+
+<hr>
+
+<div class="col-md-8">
+    <form id="question">
+        <p>Not sure yet? Visit our FAQ page or...</p>
+        <p>All fields are required.</p>
+    </form>
+</div>
+
+<hr>
+
+<div class="col-md-8">
+    <form id="feedback">
+        <h2>Feedback</h2>
+    </form>
+</div>
