@@ -1,29 +1,73 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#selection').on('change', function () {
+            if (this.value == 'issue') {
+                $("#issueGroup").show();
+                $("#issueGroup :input").prop('required', true);
+                $("#questionGroup").hide();
+                $("#questionGroup :input").prop('required', false);
+                $("#feedbackGroup").hide();
+                $("#feedbackGroup :input").prop('required', false);
+            }
+            ;
+            if (this.value == 'question') {
+                $("#issueGroup").hide();
+                $("#issueGroup :input").prop('required', false);
+                $("#questionGroup").show();
+                $("#questionGroup :input").prop('required', true);
+                $("#feedbackGroup").hide();
+                $("#feedbackGroup :input").prop('required', false);
+            }
+            ;
+            if (this.value == 'feedback') {
+                $("#issueGroup").hide();
+                $("#issueGroup :input").prop('required', false);
+                $("#questionGroup").hide();
+                $("#questionGroup :input").prop('required', false);
+                $("#feedbackGroup").show();
+                $("#feedbackGroup :input").prop('required', true);
+            }
+            ;
+        });
+    });
+</script>
+
 <style type="text/css">
-    .uc {text-transform: uppercase;}
+    textarea {
+        resize: vertical;
+    }
+
+    .uc {
+        text-transform: uppercase;
+    }
 </style>
 
 <h2 class="uc">Questions? Comments? Concerns? We can help.</h2>
 
 <p>Reach us through one of the online forms below, or call Consumer Relations at 715-466-6608.</p>
 
-<select id="selection" name="selection" class="form-selector form-control">
-    <option value="" class="uc" disabled selected>Please Select...</option>
-    <option value="issue" class="uc">I have an issue with a product I purchased.</option>
-    <option value="question" class="uc">I have a general question about a product.</option>
-    <option value="feedback" class="uc">I would like to give feedback.</option>
-</select>
+<div class="col-md-12">
+    <select id="selection" name="selection" class="form-selector form-control">
+        <option value="" class="uc" disabled selected>Please Select...</option>
+        <option value="issue" class="uc">I have an issue with a product I purchased.</option>
+        <option value="question" class="uc">I have a general question about a product.</option>
+        <option value="feedback" class="uc">I would like to give feedback.</option>
+    </select>
+</div>
 
+<div class="clearfix"></div>
 <hr>
 
-<div class="col-md-8">
-    <form id="issue">
+<div class="col-md-6" id="issueGroup" style="display: none">
+    <form id="issueForm">
         <div class="form-group">
-            <p>We're here to help. Please provide us with as many details about the product as you can.</p>
-            <p>All fields are required.</p>
+            <strong>We're here to help. Please provide us with as many details about the product as you
+                can.</strong><br>
+            <strong>All fields are required.</strong>
         </div>
         <div class="form-group">
             <label for="upc">Last 6 digits of UPC code</label>
-            <input class="form-control" type="text" name="upc" maxlength="6">
+            <input class="form-control" type="text" maxlength="6" name="upc">
         </div>
         <div class="form-group">
             <label for="bestBy">Best By Date</label>
@@ -33,22 +77,204 @@
             <label for="batch">Batch Number</label>
             <input class="form-control" type="text" name="batch">
         </div>
+
+        <div class="form-group">
+            <strong>Please provide information on where you purchased the product.</strong>
+        </div>
+
+        <div class="form-group">
+            <label for="storeName">Store Name</label>
+            <input class="form-control" type="text" name="storeName">
+        </div>
+        <div class="form-group">
+            <label for="storeAddress">Store Address</label>
+            <input class="form-control" type="text" name="storeAddress">
+        </div>
+        <div class="form-group">
+            <label for="storeCity">City</label>
+            <input class="form-control" type="text" name="storeCity">
+        </div>
+        <div class="form-group">
+            <label for="storeState">State/Province</label>
+            <input class="form-control" type="text" name="storeState">
+        </div>
+        <div class="form-group">
+            <label for="issue">What is the issue?</label>
+            <textarea class="form-control" name="issue" cols="30" rows="10"></textarea>
+        </div>
+
+        <hr>
+
+        <div class="form-group">
+            <p class="uc"><strong>Contact Information</strong></p>
+        </div>
+        <div class="form-group">
+            <label for="yourName">Your Name</label>
+            <input class="form-control" type="text" name="yourName">
+        </div>
+        <div class="form-group">
+            <label for="yourAddress">Street Address</label>
+            <input class="form-control" type="text" name="yourAddress">
+        </div>
+        <div class="form-group">
+            <label for="yourAddress2">Address #2</label>
+            <input class="form-control" type="text" name="yourAddress2">
+        </div>
+        <div class="form-group">
+            <label for="yourEmail">Email</label>
+            <input class="form-control" type="email" name="yourEmail">
+        </div>
+        <div class="form-group">
+            <label for="yourPhone">Phone Number</label>
+            <input class="form-control" type="tel" name="yourPhone">
+        </div>
+        <div class="form-group">
+            <label for="yourCountry">Country</label>
+            <input class="form-control" type="text" name="yourCountry">
+        </div>
+        <div class="form-group">
+            <label for="yourCity">City</label>
+            <input class="form-control" type="text" name="yourCity">
+        </div>
+        <div class="form-group">
+            <label for="yourState">State/Province</label>
+            <input class="form-control" type="text" name="yourState">
+        </div>
+        <div class="form-group">
+            <label for="yourZip">Postal Code</label>
+            <input class="form-control" name="yourZip" type="number">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-lg btn-block">Button</button>
+        </div>
     </form>
 </div>
 
-<hr>
+<div class="clearfix"></div>
 
-<div class="col-md-8">
-    <form id="question">
-        <p>Not sure yet? Visit our FAQ page or...</p>
-        <p>All fields are required.</p>
+<div class="col-md-6" id="questionGroup" style="display: none">
+    <form id="questionForm">
+        <div class="form-group">
+            <strong>Not sure yet? Visit our FAQ page or...</strong><br>
+            <strong>All fields are required.</strong>
+        </div>
+        <div class="form-group">
+            <div class="form-group">
+                <label for="question">What's your question (briefly)?</label>
+                <textarea class="form-control" name="question" cols="30" rows="10"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <strong>In order to better serve you, please provide our consumer relations team with your contact
+                information.</strong>
+        </div>
+        <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input class="form-control" type="text" name="firstName">
+        </div>
+        <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input class="form-control" type="text" name="lastName">
+        </div>
+        <div class="form-group">
+            <label for="yourEmail">Email</label>
+            <input class="form-control" type="email" name="yourEmail">
+        </div>
+        <div class="form-group">
+            <label for="yourPhone">Phone Number</label>
+            <input class="form-control" type="tel" name="yourPhone">
+        </div>
+
+        <hr>
+
+        <div class="form-group">
+            <label for="yourCountry">Country</label>
+            <input class="form-control" type="text" name="yourCountry">
+        </div>
+        <div class="form-group">
+            <label for="yourAddress">Street Address</label>
+            <input class="form-control" type="text" name="yourAddress">
+        </div>
+        <div class="form-group">
+            <label for="yourAddress2">Address #2</label>
+            <input class="form-control" type="text" name="yourAddress2">
+        </div>
+        <div class="form-group">
+            <label for="yourCity">City</label>
+            <input class="form-control" type="text" name="yourCity">
+        </div>
+        <div class="form-group">
+            <label for="yourState">State/Province</label>
+            <input class="form-control" type="text" name="yourState">
+        </div>
+        <div class="form-group">
+            <label for="yourZip">Postal Code</label>
+            <input class="form-control" name="yourZip" type="number">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-lg btn-block">Button</button>
+        </div>
     </form>
 </div>
 
-<hr>
+<div class="clearfix"></div>
 
-<div class="col-md-8">
-    <form id="feedback">
-        <h2>Feedback</h2>
+<div class="col-md-6" id="feedbackGroup" style="display: none">
+    <form id="feedbackForm">
+        <div class="form-group">
+            <label for="feedbackText">I wanted to let you know...</label>
+            <textarea class="form-control" name="feedbackText" cols="30" rows="10"></textarea>
+            <small>Disclaimer: We cannot accept suggestions for new products, advertising, promotions, etc. from anyone
+                outside of our company. This policy is necessary to prevent misunderstandings as to the origin of ideas.
+                That's what our lawyers tell us.
+            </small>
+        </div>
+
+        <hr>
+
+        <div class="form-group">
+            <p><strong>In order to better serve you, please provide our consumer relations team with your contact
+                information.</strong></p>
+            <p class="uc"><strong>Contact Information</strong></p>
+        </div>
+        <div class="form-group">
+            <label for="yourName">Your Name</label>
+            <input class="form-control" type="text" name="yourName">
+        </div>
+        <div class="form-group">
+            <label for="yourAddress">Street Address</label>
+            <input class="form-control" type="text" name="yourAddress">
+        </div>
+        <div class="form-group">
+            <label for="yourAddress2">Address #2</label>
+            <input class="form-control" type="text" name="yourAddress2">
+        </div>
+        <div class="form-group">
+            <label for="yourEmail">Email</label>
+            <input class="form-control" type="email" name="yourEmail">
+        </div>
+        <div class="form-group">
+            <label for="yourPhone">Phone Number</label>
+            <input class="form-control" type="tel" name="yourPhone">
+        </div>
+        <div class="form-group">
+            <label for="yourCountry">Country</label>
+            <input class="form-control" type="text" name="yourCountry">
+        </div>
+        <div class="form-group">
+            <label for="yourCity">City</label>
+            <input class="form-control" type="text" name="yourCity">
+        </div>
+        <div class="form-group">
+            <label for="yourState">State/Province</label>
+            <input class="form-control" type="text" name="yourState">
+        </div>
+        <div class="form-group">
+            <label for="yourZip">Postal Code</label>
+            <input class="form-control" name="yourZip" type="number">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-lg btn-block">Button</button>
+        </div>
     </form>
 </div>
