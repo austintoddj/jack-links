@@ -8,8 +8,9 @@
                 $("#questionGroup :input").prop('required', false);
                 $("#feedbackGroup").hide();
                 $("#feedbackGroup :input").prop('required', false);
-            }
-            ;
+                // Never require the Address 2 field
+                $("input[name='yourAddress2']").prop('required', false);
+            };
             if (this.value == 'question') {
                 $("#issueGroup").hide();
                 $("#issueGroup :input").prop('required', false);
@@ -17,8 +18,9 @@
                 $("#questionGroup :input").prop('required', true);
                 $("#feedbackGroup").hide();
                 $("#feedbackGroup :input").prop('required', false);
-            }
-            ;
+                // Never require the Address 2 field
+                $("input[name='yourAddress2']").prop('required', false);
+            };
             if (this.value == 'feedback') {
                 $("#issueGroup").hide();
                 $("#issueGroup :input").prop('required', false);
@@ -26,20 +28,39 @@
                 $("#questionGroup :input").prop('required', false);
                 $("#feedbackGroup").show();
                 $("#feedbackGroup :input").prop('required', true);
-            }
-            ;
+                // Never require the Address 2 field
+                $("input[name='yourAddress2']").prop('required', false);
+            };
         });
     });
 </script>
 
-<style type="text/css">
-    textarea {
-        resize: vertical;
-    }
+<script>
+    $(document).ready(function(e) {
 
-    .uc {
-        text-transform: uppercase;
+    $("form[name='issueForm']").submit(function(e) {
+
+        e.preventDefault();
+
+        var form_data = $(this).serialize();
+        var form_url = $(this).attr("action");
+        var form_method = $(this).attr("method").toUpperCase();
+
+        $.ajax({
+            url: form_url,
+            type: form_method,
+            data: form_data,
+            cache: false,
+            success: function(returnhtml){
+                alert('Submission was successful.');
+            }
+        });
     }
+</script>
+
+<style type="text/css">
+    textarea {resize: vertical;}
+    .uc {text-transform: uppercase;}
 </style>
 
 <h2 class="uc">Questions? Comments? Concerns? We can help.</h2>
@@ -59,7 +80,7 @@
 <hr>
 
 <div class="col-md-6" id="issueGroup" style="display: none">
-    <form id="issueForm">
+    <form id="issueForm" name="issueForm" action="" method="post">
         <div class="form-group">
             <strong>We're here to help. Please provide us with as many details about the product as you
                 can.</strong><br>
@@ -145,7 +166,7 @@
             <input class="form-control" name="yourZip" type="number">
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-lg btn-block">Button</button>
+            <button type="submit" class="btn btn-lg btn-block uc">Submit Feedback</button>
         </div>
     </form>
 </div>
@@ -153,7 +174,7 @@
 <div class="clearfix"></div>
 
 <div class="col-md-6" id="questionGroup" style="display: none">
-    <form id="questionForm">
+    <form id="questionForm" name="questionForm">
         <div class="form-group">
             <strong>Not sure yet? Visit our FAQ page or...</strong><br>
             <strong>All fields are required.</strong>
@@ -212,7 +233,7 @@
             <input class="form-control" name="yourZip" type="number">
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-lg btn-block">Button</button>
+            <button type="submit" class="btn btn-lg btn-block uc">Submit Feedback</button>
         </div>
     </form>
 </div>
@@ -220,7 +241,7 @@
 <div class="clearfix"></div>
 
 <div class="col-md-6" id="feedbackGroup" style="display: none">
-    <form id="feedbackForm">
+    <form id="feedbackForm" name="feedbackForm">
         <div class="form-group">
             <label for="feedbackText">I wanted to let you know...</label>
             <textarea class="form-control" name="feedbackText" cols="30" rows="10"></textarea>
@@ -274,7 +295,7 @@
             <input class="form-control" name="yourZip" type="number">
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-lg btn-block">Button</button>
+            <button type="submit" class="btn btn-lg btn-block uc">Submit Feedback</button>
         </div>
     </form>
 </div>
