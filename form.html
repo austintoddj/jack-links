@@ -1,301 +1,359 @@
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#selection').on('change', function () {
-            if (this.value == 'issue') {
-                $("#issueGroup").show();
-                $("#issueGroup :input").prop('required', true);
-                $("#questionGroup").hide();
-                $("#questionGroup :input").prop('required', false);
-                $("#feedbackGroup").hide();
-                $("#feedbackGroup :input").prop('required', false);
-                // Never require the Address 2 field
-                $("input[name='yourAddress2']").prop('required', false);
-            };
-            if (this.value == 'question') {
-                $("#issueGroup").hide();
-                $("#issueGroup :input").prop('required', false);
-                $("#questionGroup").show();
-                $("#questionGroup :input").prop('required', true);
-                $("#feedbackGroup").hide();
-                $("#feedbackGroup :input").prop('required', false);
-                // Never require the Address 2 field
-                $("input[name='yourAddress2']").prop('required', false);
-            };
-            if (this.value == 'feedback') {
-                $("#issueGroup").hide();
-                $("#issueGroup :input").prop('required', false);
-                $("#questionGroup").hide();
-                $("#questionGroup :input").prop('required', false);
-                $("#feedbackGroup").show();
-                $("#feedbackGroup :input").prop('required', true);
-                // Never require the Address 2 field
-                $("input[name='yourAddress2']").prop('required', false);
-            };
-        });
-    });
-</script>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css" />
+        <style type="text/css">
+            textarea {resize: vertical;}
+            .uc {text-transform: uppercase;}
+        </style>
+    </head>
+    <body>
+        <div class="col-md-8 col-md-offset-2">
+            <h2 class="uc">Questions? Comments? Concerns? We can help.</h2>
 
-<script>
-    $(document).ready(function(e) {
+            <p>Reach us through one of the online forms below, or call Consumer Relations at 715-466-6608.</p>
 
-    $("form[name='issueForm']").submit(function(e) {
+            <div class="col-md-12">
+                <select id="selection" name="selection" class="form-selector form-control">
+                    <option value="" class="uc" disabled selected>Please Select...</option>
+                    <option value="issue" class="uc">I have an issue with a product I purchased.</option>
+                    <option value="question" class="uc">I have a general question about a product.</option>
+                    <option value="feedback" class="uc">I would like to give feedback.</option>
+                </select>
+            </div>
 
-        e.preventDefault();
+            <div class="clearfix"></div>
+            <hr>
 
-        var form_data = $(this).serialize();
-        var form_url = $(this).attr("action");
-        var form_method = $(this).attr("method").toUpperCase();
+            <div class="col-md-12" id="issueGroup" style="display: none">
+                <div class="col-md-8">
+                    <form id="issueForm" name="issueForm" method="post">
+                        <div class="form-group">
+                            <strong>We're here to help. Please provide us with as many details about the product as you
+                                can.</strong><br>
+                            <strong>All fields are required.</strong>
+                        </div>
+                        <div class="form-group">
+                            <label class="radio-inline">
+                                <input type="radio" name="optradio">Jerky
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="optradio">Bites
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="optradio">Steaks & Strips
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="optradio">Sticks
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="optradio">Sausages
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="optradio">Other
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="UPCCode">Last 6 digits of UPC code</label>
+                            <input class="form-control" type="text" maxlength="6" name="UPCCode" oninvalid="this.setCustomValidity('Please enter 6 digits')">
+                        </div>
+                        <div class="form-group">
+                            <label for="BestBy">Date</label>
+                            <!-- <div class="col-xs-5 date"> -->
+                                <div class="input-group input-append date" id="BestBy">
+                                    <input type="text" class="form-control" name="BestBy" />
+                                    <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            <!-- </div> -->
+                        </div>
+                        <!-- <div class="form-group">
+                            <label for="BestBy">Best By Date</label>
+                            <input class="form-control" type="date" name="BestBy" oninvalid="this.setCustomValidity('Please select Month, Day, and Year')">
+                        </div> -->
+                        <div class="form-group">
+                            <label for="BatchNumber">Batch Number</label>
+                            <input class="form-control" type="text" name="BatchNumber" oninvalid="this.setCustomValidity('Please enter 6 digits')">
+                        </div>
 
-        $.ajax({
-            url: form_url,
-            type: form_method,
-            data: form_data,
-            cache: false,
-            success: function(returnhtml){
-                alert('Submission was successful.');
-            }
-        });
-    }
-</script>
+                        <hr>
 
-<style type="text/css">
-    textarea {resize: vertical;}
-    .uc {text-transform: uppercase;}
-</style>
+                        <div class="form-group">
+                            <strong>Please provide information on where you purchased the product.</strong>
+                        </div>
 
-<h2 class="uc">Questions? Comments? Concerns? We can help.</h2>
+                        <div class="form-group">
+                            <label for="StoreName">Store Name</label>
+                            <input class="form-control" type="text" name="StoreName">
+                        </div>
+                        <div class="form-group">
+                            <label for="StoreAddress">Store Address</label>
+                            <input class="form-control" type="text" name="StoreAddress">
+                        </div>
+                        <div class="form-group">
+                            <label for="StoreCity">City</label>
+                            <input class="form-control" type="text" name="StoreCity">
+                        </div>
+                        <div class="form-group">
+                            <label for="StoreState">State/Province</label>
+                            <input class="form-control" type="text" name="StoreState">
+                        </div>
+                        <div class="form-group">
+                            <label for="StoreState">Postal Code</label>
+                            <input class="form-control" type="text" name="StoreState">
+                        </div>
+                        <div class="form-group">
+                            <label for="StoreState">Country</label>
+                            <input class="form-control" type="text" name="Country">
+                        </div>
+                        <div class="form-group">
+                            <label for="Issue">What is the issue?</label>
+                            <textarea class="form-control" name="Issue" cols="30" rows="10" oninvalid="this.setCustomValidity('Please briefly describe the issue.')"></textarea>
+                        </div>
 
-<p>Reach us through one of the online forms below, or call Consumer Relations at 715-466-6608.</p>
+                        <hr>
 
-<div class="col-md-12">
-    <select id="selection" name="selection" class="form-selector form-control">
-        <option value="" class="uc" disabled selected>Please Select...</option>
-        <option value="issue" class="uc">I have an issue with a product I purchased.</option>
-        <option value="question" class="uc">I have a general question about a product.</option>
-        <option value="feedback" class="uc">I would like to give feedback.</option>
-    </select>
-</div>
+                        <div class="form-group">
+                            <p class="uc"><strong>Contact Information</strong></p>
+                        </div>
+                        <div class="form-group">
+                            <label for="ConsumerFirstName">First Name</label>
+                            <input class="form-control" type="text" name="ConsumerFirstName" oninvalid="this.setCustomValidity('')">
+                        </div>
+                        <div class="form-group">
+                            <label for="ConsumerLastName">Last Name</label>
+                            <input class="form-control" type="text" name="ConsumerLastName" oninvalid="this.setCustomValidity('')">
+                        </div>
+                        <div class="form-group">
+                            <label for="ConsumerAddress1">Street Address</label>
+                            <input class="form-control" type="text" name="ConsumerAddress1">
+                        </div>
+                        <div class="form-group">
+                            <label for="ConsumerAddress2">Address #2</label>
+                            <input class="form-control" type="text" name="ConsumerAddress2">
+                        </div>
+                        <div class="form-group">
+                            <label for="ConsumerEmail">Email</label>
+                            <input class="form-control" type="email" name="ConsumerEmail" oninvalid="this.setCustomValidity('Email must include an @ and a period')">
+                        </div>
+                        <div class="form-group">
+                            <label for="ConsumerPhone">Phone Number</label>
+                            <input class="form-control" type="tel" name="ConsumerPhone" oninvalid="this.setCustomValidity('Please enter numbers only')">
+                        </div>
+                        <div class="form-group">
+                            <label for="ConsumerCity">City</label>
+                            <input class="form-control" type="text" name="ConsumerCity">
+                        </div>
+                        <div class="form-group">
+                            <label for="ConsumerState">State/Province</label>
+                            <input class="form-control" type="text" name="ConsumerState">
+                        </div>
+                        <div class="form-group">
+                            <label for="ConsumerPostalCode">Postal Code</label>
+                            <input class="form-control" name="ConsumerPostalCode" type="number" oninvalid="this.setCustomValidity('Please enter numbers only')">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-lg btn-block uc">Submit Feedback</button>
+                        </div>
+                    </form>
+                </div>
 
-<div class="clearfix"></div>
-<hr>
+                <div class="col-md-4">
+                    <img src="https://d20b8ckvu6gb0w.cloudfront.net/jacklinks/images/consumer-relations/Jerky_2.85oz_Back_consumer+info+flat.png" style="width: 100%">
+                </div>
+            </div>
 
-<div class="col-md-6" id="issueGroup" style="display: none">
-    <form id="issueForm" name="issueForm" action="" method="post">
-        <div class="form-group">
-            <strong>We're here to help. Please provide us with as many details about the product as you
-                can.</strong><br>
-            <strong>All fields are required.</strong>
-        </div>
-        <div class="form-group">
-            <label for="upc">Last 6 digits of UPC code</label>
-            <input class="form-control" type="text" maxlength="6" name="upc">
-        </div>
-        <div class="form-group">
-            <label for="bestBy">Best By Date</label>
-            <input class="form-control" type="date" name="bestBy">
-        </div>
-        <div class="form-group">
-            <label for="batch">Batch Number</label>
-            <input class="form-control" type="text" name="batch">
-        </div>
+            <div class="clearfix"></div>
 
-        <div class="form-group">
-            <strong>Please provide information on where you purchased the product.</strong>
-        </div>
+            <div class="col-md-6" id="questionGroup" style="display: none">
+                <form id="questionForm" name="questionForm">
+                    <div class="form-group">
+                        <strong>Not sure yet? Visit our FAQ page or...</strong><br>
+                        <strong>All fields are required.</strong>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label for="ConsumerQuestion">What's your question (briefly)?</label>
+                            <textarea class="form-control" name="ConsumerQuestion" cols="30" rows="10"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <strong>In order to better serve you, please provide our consumer relations team with your contact
+                            information.</strong>
+                    </div>
+                    <div class="form-group">
+                        <p class="uc"><strong>Contact Information</strong></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="ConsumerFirstName">First Name</label>
+                        <input class="form-control" type="text" name="ConsumerFirstName">
+                    </div>
+                    <div class="form-group">
+                        <label for="ConsumerLastName">Last Name</label>
+                        <input class="form-control" type="text" name="ConsumerLastName">
+                    </div>
+                    <div class="form-group">
+                        <label for="ConsumerEmail">Email</label>
+                        <input class="form-control" type="email" name="ConsumerEmail">
+                    </div>
+                    <div class="form-group">
+                        <label for="ConsumerPhone">Phone Number</label>
+                        <input class="form-control" type="tel" name="ConsumerPhone">
+                    </div>
 
-        <div class="form-group">
-            <label for="storeName">Store Name</label>
-            <input class="form-control" type="text" name="storeName">
-        </div>
-        <div class="form-group">
-            <label for="storeAddress">Store Address</label>
-            <input class="form-control" type="text" name="storeAddress">
-        </div>
-        <div class="form-group">
-            <label for="storeCity">City</label>
-            <input class="form-control" type="text" name="storeCity">
-        </div>
-        <div class="form-group">
-            <label for="storeState">State/Province</label>
-            <input class="form-control" type="text" name="storeState">
-        </div>
-        <div class="form-group">
-            <label for="issue">What is the issue?</label>
-            <textarea class="form-control" name="issue" cols="30" rows="10"></textarea>
-        </div>
+                    <hr>
 
-        <hr>
+                    <div class="form-group">
+                        <label for="ConsumerAddress1">Street Address</label>
+                        <input class="form-control" type="text" name="ConsumerAddress1">
+                    </div>
+                    <div class="form-group">
+                        <label for="ConsumerAddress2">Address #2</label>
+                        <input class="form-control" type="text" name="ConsumerAddress2">
+                    </div>
+                    <div class="form-group">
+                        <label for="ConsumerCity">City</label>
+                        <input class="form-control" type="text" name="ConsumerCity">
+                    </div>
+                    <div class="form-group">
+                        <label for="ConsumerState">State/Province</label>
+                        <input class="form-control" type="text" name="ConsumerState">
+                    </div>
+                    <div class="form-group">
+                        <label for="ConsumerPostalCode">Postal Code</label>
+                        <input class="form-control" name="ConsumerPostalCode" type="number">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-lg btn-block uc">Submit Feedback</button>
+                    </div>
+                </form>
+            </div>
 
-        <div class="form-group">
-            <p class="uc"><strong>Contact Information</strong></p>
-        </div>
-        <div class="form-group">
-            <label for="yourName">Your Name</label>
-            <input class="form-control" type="text" name="yourName">
-        </div>
-        <div class="form-group">
-            <label for="yourAddress">Street Address</label>
-            <input class="form-control" type="text" name="yourAddress">
-        </div>
-        <div class="form-group">
-            <label for="yourAddress2">Address #2</label>
-            <input class="form-control" type="text" name="yourAddress2">
-        </div>
-        <div class="form-group">
-            <label for="yourEmail">Email</label>
-            <input class="form-control" type="email" name="yourEmail">
-        </div>
-        <div class="form-group">
-            <label for="yourPhone">Phone Number</label>
-            <input class="form-control" type="tel" name="yourPhone">
-        </div>
-        <div class="form-group">
-            <label for="yourCountry">Country</label>
-            <input class="form-control" type="text" name="yourCountry">
-        </div>
-        <div class="form-group">
-            <label for="yourCity">City</label>
-            <input class="form-control" type="text" name="yourCity">
-        </div>
-        <div class="form-group">
-            <label for="yourState">State/Province</label>
-            <input class="form-control" type="text" name="yourState">
-        </div>
-        <div class="form-group">
-            <label for="yourZip">Postal Code</label>
-            <input class="form-control" name="yourZip" type="number">
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-lg btn-block uc">Submit Feedback</button>
-        </div>
-    </form>
-</div>
+            <div class="clearfix"></div>
 
-<div class="clearfix"></div>
+            <div class="col-md-6" id="feedbackGroup" style="display: none">
+                <form id="feedbackForm" name="feedbackForm">
+                    <div class="form-group">
+                        <label for="ConsumerComment">I wanted to let you know...</label>
+                        <textarea class="form-control" name="ConsumerComment" cols="30" rows="10"></textarea>
+                        <small>Disclaimer: We cannot accept suggestions for new products, advertising, promotions, etc. from anyone
+                            outside of our company. This policy is necessary to prevent misunderstandings as to the origin of ideas.
+                            That's what our lawyers tell us.
+                        </small>
+                    </div>
 
-<div class="col-md-6" id="questionGroup" style="display: none">
-    <form id="questionForm" name="questionForm">
-        <div class="form-group">
-            <strong>Not sure yet? Visit our FAQ page or...</strong><br>
-            <strong>All fields are required.</strong>
-        </div>
-        <div class="form-group">
-            <div class="form-group">
-                <label for="question">What's your question (briefly)?</label>
-                <textarea class="form-control" name="question" cols="30" rows="10"></textarea>
+                    <hr>
+
+                    <div class="form-group">
+                        <p><strong>In order to better serve you, please provide our consumer relations team with your contact
+                            information.</strong></p>
+                        <p class="uc"><strong>Contact Information</strong></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="ConsumerFirstName">First Name</label>
+                        <input class="form-control" type="text" name="ConsumerFirstName">
+                    </div>
+                    <div class="form-group">
+                        <label for="ConsumerLastName">Last Name</label>
+                        <input class="form-control" type="text" name="ConsumerLastName">
+                    </div>
+                    <div class="form-group">
+                        <label for="ConsumerAddress1">Street Address</label>
+                        <input class="form-control" type="text" name="ConsumerAddress1">
+                    </div>
+                    <div class="form-group">
+                        <label for="ConsumerAddress2">Address #2</label>
+                        <input class="form-control" type="text" name="ConsumerAddress2">
+                    </div>
+                    <div class="form-group">
+                        <label for="ConsumerEmail">Email</label>
+                        <input class="form-control" type="email" name="ConsumerEmail">
+                    </div>
+                    <div class="form-group">
+                        <label for="ConsumerPhone">Phone Number</label>
+                        <input class="form-control" type="tel" name="ConsumerPhone">
+                    </div>
+                    <div class="form-group">
+                        <label for="ConsumerCity">City</label>
+                        <input class="form-control" type="text" name="ConsumerCity">
+                    </div>
+                    <div class="form-group">
+                        <label for="ConsumerState">State/Province</label>
+                        <input class="form-control" type="text" name="ConsumerState">
+                    </div>
+                    <div class="form-group">
+                        <label for="ConsumerPostalCode">Postal Code</label>
+                        <input class="form-control" name="ConsumerPostalCode" type="number">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-lg btn-block uc">Submit Feedback</button>
+                    </div>
+                </form>
             </div>
         </div>
-        <div class="form-group">
-            <strong>In order to better serve you, please provide our consumer relations team with your contact
-                information.</strong>
-        </div>
-        <div class="form-group">
-            <label for="firstName">First Name</label>
-            <input class="form-control" type="text" name="firstName">
-        </div>
-        <div class="form-group">
-            <label for="lastName">Last Name</label>
-            <input class="form-control" type="text" name="lastName">
-        </div>
-        <div class="form-group">
-            <label for="yourEmail">Email</label>
-            <input class="form-control" type="email" name="yourEmail">
-        </div>
-        <div class="form-group">
-            <label for="yourPhone">Phone Number</label>
-            <input class="form-control" type="tel" name="yourPhone">
-        </div>
 
-        <hr>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function (e) {
+                // DATEPICKER
+                $('#BestBy').datepicker({format: 'mm/dd/yyyy'}).on('changeDate', function(e) {$('#eventForm').formValidation('revalidateField', 'date');});
 
-        <div class="form-group">
-            <label for="yourCountry">Country</label>
-            <input class="form-control" type="text" name="yourCountry">
-        </div>
-        <div class="form-group">
-            <label for="yourAddress">Street Address</label>
-            <input class="form-control" type="text" name="yourAddress">
-        </div>
-        <div class="form-group">
-            <label for="yourAddress2">Address #2</label>
-            <input class="form-control" type="text" name="yourAddress2">
-        </div>
-        <div class="form-group">
-            <label for="yourCity">City</label>
-            <input class="form-control" type="text" name="yourCity">
-        </div>
-        <div class="form-group">
-            <label for="yourState">State/Province</label>
-            <input class="form-control" type="text" name="yourState">
-        </div>
-        <div class="form-group">
-            <label for="yourZip">Postal Code</label>
-            <input class="form-control" name="yourZip" type="number">
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-lg btn-block uc">Submit Feedback</button>
-        </div>
-    </form>
-</div>
+                // FORM TOGGLE
+                $('#selection').on('change', function () {
+                    if (this.value == 'issue') {
+                        $("#issueGroup").show();
+                        $("#issueGroup :input").prop('required', true);
+                        $("#questionGroup").hide();
+                        $("#questionGroup :input").prop('required', false);
+                        $("#feedbackGroup").hide();
+                        $("#feedbackGroup :input").prop('required', false);
+                        // Never require the Address 2 field
+                        $("input[name='yourAddress2']").prop('required', false);
+                    };
+                    if (this.value == 'question') {
+                        $("#issueGroup").hide();
+                        $("#issueGroup :input").prop('required', false);
+                        $("#questionGroup").show();
+                        $("#questionGroup :input").prop('required', true);
+                        $("#feedbackGroup").hide();
+                        $("#feedbackGroup :input").prop('required', false);
+                        // Never require the Address 2 field
+                        $("input[name='yourAddress2']").prop('required', false);
+                    };
+                    if (this.value == 'feedback') {
+                        $("#issueGroup").hide();
+                        $("#issueGroup :input").prop('required', false);
+                        $("#questionGroup").hide();
+                        $("#questionGroup :input").prop('required', false);
+                        $("#feedbackGroup").show();
+                        $("#feedbackGroup :input").prop('required', true);
+                        // Never require the Address 2 field
+                        $("input[name='yourAddress2']").prop('required', false);
+                    };
+                });
 
-<div class="clearfix"></div>
+                $("form[name='issueForm']").submit(function(e) {
 
-<div class="col-md-6" id="feedbackGroup" style="display: none">
-    <form id="feedbackForm" name="feedbackForm">
-        <div class="form-group">
-            <label for="feedbackText">I wanted to let you know...</label>
-            <textarea class="form-control" name="feedbackText" cols="30" rows="10"></textarea>
-            <small>Disclaimer: We cannot accept suggestions for new products, advertising, promotions, etc. from anyone
-                outside of our company. This policy is necessary to prevent misunderstandings as to the origin of ideas.
-                That's what our lawyers tell us.
-            </small>
-        </div>
+                    e.preventDefault();
 
-        <hr>
-
-        <div class="form-group">
-            <p><strong>In order to better serve you, please provide our consumer relations team with your contact
-                information.</strong></p>
-            <p class="uc"><strong>Contact Information</strong></p>
-        </div>
-        <div class="form-group">
-            <label for="yourName">Your Name</label>
-            <input class="form-control" type="text" name="yourName">
-        </div>
-        <div class="form-group">
-            <label for="yourAddress">Street Address</label>
-            <input class="form-control" type="text" name="yourAddress">
-        </div>
-        <div class="form-group">
-            <label for="yourAddress2">Address #2</label>
-            <input class="form-control" type="text" name="yourAddress2">
-        </div>
-        <div class="form-group">
-            <label for="yourEmail">Email</label>
-            <input class="form-control" type="email" name="yourEmail">
-        </div>
-        <div class="form-group">
-            <label for="yourPhone">Phone Number</label>
-            <input class="form-control" type="tel" name="yourPhone">
-        </div>
-        <div class="form-group">
-            <label for="yourCountry">Country</label>
-            <input class="form-control" type="text" name="yourCountry">
-        </div>
-        <div class="form-group">
-            <label for="yourCity">City</label>
-            <input class="form-control" type="text" name="yourCity">
-        </div>
-        <div class="form-group">
-            <label for="yourState">State/Province</label>
-            <input class="form-control" type="text" name="yourState">
-        </div>
-        <div class="form-group">
-            <label for="yourZip">Postal Code</label>
-            <input class="form-control" name="yourZip" type="number">
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-lg btn-block uc">Submit Feedback</button>
-        </div>
-    </form>
-</div>
+                    $.ajax({
+                        url: 'https://matadorsnacks-dev.jacklinksdev.com/midlayer/midlayer.php',
+                        type: $(this).attr("method").toUpperCase(),
+                        data: $(this).serialize(),
+                        cache: false,
+                        success: function (data) {
+                            console.log('Submission was successful');
+                            console.log(data);
+                        },
+                        error: function (data) {
+                            console.log('An error occurred');
+                            console.log(data);
+                        },
+                    });
+                });
+            });
+        </script>
+    </body>
+</html>
