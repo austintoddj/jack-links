@@ -13,7 +13,7 @@ foreach ($_POST as $key => $value) {
 
 $options = [
     'http' => [
-        'header'  => "Content-type: application/x-www-form-urlencoded",
+        'header'  => 'Content-type: application/x-www-form-urlencoded',
         'method'  => 'POST',
         'content' => http_build_query(json_encode($data))
     ]

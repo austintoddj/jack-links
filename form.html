@@ -183,7 +183,7 @@
 
             <!-- Question Form -->
             <div class="col-md-6" id="questionGroup" style="display: none">
-                <form id="questionForm" name="questionForm">
+                <form id="questionForm" name="questionForm" method="post">
                     <div class="form-group">
                         <strong>Not sure yet? Visit our FAQ page or...</strong><br>
                         <strong>All fields are required.</strong>
@@ -274,7 +274,7 @@
 
             <!-- Feedback Form -->
             <div class="col-md-6" id="feedbackGroup" style="display: none">
-                <form id="feedbackForm" name="feedbackForm">
+                <form id="feedbackForm" name="feedbackForm" method="post">
                     <div class="form-group">
                         <label for="ConsumerComment">I wanted to let you know...</label>
                         <textarea class="form-control" name="ConsumerComment" cols="30" rows="10"></textarea>
@@ -388,23 +388,25 @@
                     };
                 });
 
-                $("form[name='issueForm']").submit(function(e) {
+                $("form").submit(function(e) {
 
                     e.preventDefault();
 
+                    var successMessage = 'Submission was successful.';
+                    var errorMessage = 'We\'re having difficulty submitting your information. Please try again a little later. If this error continues, please contact customer service.';
+
                     $.ajax({
                         url: 'https://matadorsnacks-dev.jacklinksdev.com/midlayer/midlayer.php',
-                        type: $(this).attr("method").toUpperCase(),
+                        type: $(this).attr('method').toUpperCase(),
                         data: $(this).serialize(),
-                        cache: false,
                         success: function (data) {
                             $('.success').show();
-                            $('.success').append("Submission was successful.");
+                            $('.success').append(successMessage);
                             console.log(data);
                         },
                         error: function (data) {
                             $('.error').show();
-                            $('.error').append("We're having difficulty submitting your information. Please try again a little later. If this error continues, please contact customer service.");
+                            $('.error').append(errorMessage);
                             console.log(data);
                         },
                     });
