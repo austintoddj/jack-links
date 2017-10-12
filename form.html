@@ -1,8 +1,11 @@
 <html>
     <head>
+        <!-- Bootstrap -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css">
+        <!-- Bootstrap Date/Time Picker -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.min.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css" />
+        <!-- Styles -->
         <style type="text/css">
             textarea {resize: vertical;}
             .uc {text-transform: uppercase;}
@@ -26,54 +29,51 @@
             <div class="clearfix"></div>
             <hr>
 
+            <!-- Issue Form -->
             <div class="col-md-12" id="issueGroup" style="display: none">
                 <div class="col-md-8">
                     <form id="issueForm" name="issueForm" method="post">
                         <div class="form-group">
                             <strong>We're here to help. Please provide us with as many details about the product as you
-                                can.</strong><br>
-                            <strong>All fields are required.</strong>
+                                can. All fields are required.</strong>
                         </div>
                         <div class="form-group">
                             <label class="radio-inline">
-                                <input type="radio" name="optradio">Jerky
+                                <input type="radio" name="ProductType">Jerky
                             </label>
                             <label class="radio-inline">
-                                <input type="radio" name="optradio">Bites
+                                <input type="radio" name="ProductType">Bites
                             </label>
                             <label class="radio-inline">
-                                <input type="radio" name="optradio">Steaks & Strips
+                                <input type="radio" name="ProductType">Steaks & Strips
                             </label>
                             <label class="radio-inline">
-                                <input type="radio" name="optradio">Sticks
+                                <input type="radio" name="ProductType">Sticks
                             </label>
                             <label class="radio-inline">
-                                <input type="radio" name="optradio">Sausages
+                                <input type="radio" name="ProductType">Sausages
                             </label>
                             <label class="radio-inline">
-                                <input type="radio" name="optradio">Other
+                                <input type="radio" name="ProductType">Other
                             </label>
                         </div>
                         <div class="form-group">
                             <label for="UPCCode">Last 6 digits of UPC code</label>
-                            <input class="form-control" type="text" maxlength="6" name="UPCCode" oninvalid="this.setCustomValidity('Please enter 6 digits')">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="upc-addon">17082 - </span>
+                                <input class="form-control" type="text" maxlength="6" name="UPCCode" oninvalid="this.setCustomValidity('Please enter 6 digits')">
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="BestBy">Date</label>
-                            <!-- <div class="col-xs-5 date"> -->
-                                <div class="input-group input-append date" id="BestBy">
-                                    <input type="text" class="form-control" name="BestBy" />
-                                    <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
-                                </div>
-                            <!-- </div> -->
+                            <div class="input-group input-append date" id="BestBy">
+                                <input type="text" class="form-control" name="BestBy" placeholder="MM-DD-YYYY" />
+                                <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+                            </div>
                         </div>
-                        <!-- <div class="form-group">
-                            <label for="BestBy">Best By Date</label>
-                            <input class="form-control" type="date" name="BestBy" oninvalid="this.setCustomValidity('Please select Month, Day, and Year')">
-                        </div> -->
                         <div class="form-group">
                             <label for="BatchNumber">Batch Number</label>
-                            <input class="form-control" type="text" name="BatchNumber" oninvalid="this.setCustomValidity('Please enter 6 digits')">
+                            <input class="form-control" type="number" maxlength="6" name="BatchNumber" oninvalid="this.setCustomValidity('Please enter 6 digits')">
                         </div>
 
                         <hr>
@@ -87,8 +87,12 @@
                             <input class="form-control" type="text" name="StoreName">
                         </div>
                         <div class="form-group">
-                            <label for="StoreAddress">Store Address</label>
-                            <input class="form-control" type="text" name="StoreAddress">
+                            <label for="StoreAddress1">Store Address Line 1</label>
+                            <input class="form-control" type="text" name="StoreAddress1">
+                        </div>
+                        <div class="form-group">
+                            <label for="StoreAddress2">Store Address Line 2</label>
+                            <input class="form-control" type="text" name="StoreAddress2">
                         </div>
                         <div class="form-group">
                             <label for="StoreCity">City</label>
@@ -103,8 +107,12 @@
                             <input class="form-control" type="text" name="StoreState">
                         </div>
                         <div class="form-group">
-                            <label for="StoreState">Country</label>
-                            <input class="form-control" type="text" name="Country">
+                            <label for="storeCountry">Country</label>
+                            <select id="selection" name="storeCountry" class="form-selector form-control">
+                                <option value="" class="uc" disabled selected>Please Select...</option>
+                                <option value="issue" class="uc">United States</option>
+                                <option value="question" class="uc">Canada</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="Issue">What is the issue?</label>
@@ -138,7 +146,7 @@
                         </div>
                         <div class="form-group">
                             <label for="ConsumerPhone">Phone Number</label>
-                            <input class="form-control" type="tel" name="ConsumerPhone" oninvalid="this.setCustomValidity('Please enter numbers only')">
+                            <input class="form-control" type="tel" class="phone" data-mask="000-000-0000" name="ConsumerPhone" oninvalid="this.setCustomValidity('Please enter numbers only')">
                         </div>
                         <div class="form-group">
                             <label for="ConsumerCity">City</label>
@@ -153,6 +161,14 @@
                             <input class="form-control" name="ConsumerPostalCode" type="number" oninvalid="this.setCustomValidity('Please enter numbers only')">
                         </div>
                         <div class="form-group">
+                            <label for="ConsumerCountry">Country</label>
+                            <select id="selection" name="ConsumerCountry" class="form-selector form-control">
+                                <option value="" class="uc" disabled selected>Please Select...</option>
+                                <option value="issue" class="uc">United States</option>
+                                <option value="question" class="uc">Canada</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <button type="submit" class="btn btn-lg btn-block uc">Submit Feedback</button>
                         </div>
                     </form>
@@ -165,6 +181,7 @@
 
             <div class="clearfix"></div>
 
+            <!-- Question Form -->
             <div class="col-md-6" id="questionGroup" style="display: none">
                 <form id="questionForm" name="questionForm">
                     <div class="form-group">
@@ -172,37 +189,45 @@
                         <strong>All fields are required.</strong>
                     </div>
                     <div class="form-group">
+                        <label class="radio-inline">
+                            <input type="radio" name="ProductType">Jerky
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="ProductType">Bites
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="ProductType">Steaks & Strips
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="ProductType">Sticks
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="ProductType">Sausages
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="ProductType">Other
+                        </label>
+                    </div>
+                    <div class="form-group">
                         <div class="form-group">
                             <label for="ConsumerQuestion">What's your question (briefly)?</label>
                             <textarea class="form-control" name="ConsumerQuestion" cols="30" rows="10"></textarea>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <strong>In order to better serve you, please provide our consumer relations team with your contact
-                            information.</strong>
-                    </div>
+
+                    <hr>
+
                     <div class="form-group">
                         <p class="uc"><strong>Contact Information</strong></p>
                     </div>
                     <div class="form-group">
                         <label for="ConsumerFirstName">First Name</label>
-                        <input class="form-control" type="text" name="ConsumerFirstName">
+                        <input class="form-control" type="text" name="ConsumerFirstName" oninvalid="this.setCustomValidity('')">
                     </div>
                     <div class="form-group">
                         <label for="ConsumerLastName">Last Name</label>
-                        <input class="form-control" type="text" name="ConsumerLastName">
+                        <input class="form-control" type="text" name="ConsumerLastName" oninvalid="this.setCustomValidity('')">
                     </div>
-                    <div class="form-group">
-                        <label for="ConsumerEmail">Email</label>
-                        <input class="form-control" type="email" name="ConsumerEmail">
-                    </div>
-                    <div class="form-group">
-                        <label for="ConsumerPhone">Phone Number</label>
-                        <input class="form-control" type="tel" name="ConsumerPhone">
-                    </div>
-
-                    <hr>
-
                     <div class="form-group">
                         <label for="ConsumerAddress1">Street Address</label>
                         <input class="form-control" type="text" name="ConsumerAddress1">
@@ -210,6 +235,14 @@
                     <div class="form-group">
                         <label for="ConsumerAddress2">Address #2</label>
                         <input class="form-control" type="text" name="ConsumerAddress2">
+                    </div>
+                    <div class="form-group">
+                        <label for="ConsumerEmail">Email</label>
+                        <input class="form-control" type="email" name="ConsumerEmail" oninvalid="this.setCustomValidity('Email must include an @ and a period')">
+                    </div>
+                    <div class="form-group">
+                        <label for="ConsumerPhone">Phone Number</label>
+                        <input class="form-control" type="tel" class="phone" data-mask="000-000-0000" name="ConsumerPhone" oninvalid="this.setCustomValidity('Please enter numbers only')">
                     </div>
                     <div class="form-group">
                         <label for="ConsumerCity">City</label>
@@ -221,7 +254,15 @@
                     </div>
                     <div class="form-group">
                         <label for="ConsumerPostalCode">Postal Code</label>
-                        <input class="form-control" name="ConsumerPostalCode" type="number">
+                        <input class="form-control" name="ConsumerPostalCode" type="number" oninvalid="this.setCustomValidity('Please enter numbers only')">
+                    </div>
+                    <div class="form-group">
+                        <label for="ConsumerCountry">Country</label>
+                        <select id="selection" name="ConsumerCountry" class="form-selector form-control">
+                            <option value="" class="uc" disabled selected>Please Select...</option>
+                            <option value="issue" class="uc">United States</option>
+                            <option value="question" class="uc">Canada</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-lg btn-block uc">Submit Feedback</button>
@@ -231,6 +272,7 @@
 
             <div class="clearfix"></div>
 
+            <!-- Feedback Form -->
             <div class="col-md-6" id="feedbackGroup" style="display: none">
                 <form id="feedbackForm" name="feedbackForm">
                     <div class="form-group">
@@ -245,17 +287,15 @@
                     <hr>
 
                     <div class="form-group">
-                        <p><strong>In order to better serve you, please provide our consumer relations team with your contact
-                            information.</strong></p>
                         <p class="uc"><strong>Contact Information</strong></p>
                     </div>
                     <div class="form-group">
                         <label for="ConsumerFirstName">First Name</label>
-                        <input class="form-control" type="text" name="ConsumerFirstName">
+                        <input class="form-control" type="text" name="ConsumerFirstName" oninvalid="this.setCustomValidity('')">
                     </div>
                     <div class="form-group">
                         <label for="ConsumerLastName">Last Name</label>
-                        <input class="form-control" type="text" name="ConsumerLastName">
+                        <input class="form-control" type="text" name="ConsumerLastName" oninvalid="this.setCustomValidity('')">
                     </div>
                     <div class="form-group">
                         <label for="ConsumerAddress1">Street Address</label>
@@ -267,11 +307,11 @@
                     </div>
                     <div class="form-group">
                         <label for="ConsumerEmail">Email</label>
-                        <input class="form-control" type="email" name="ConsumerEmail">
+                        <input class="form-control" type="email" name="ConsumerEmail" oninvalid="this.setCustomValidity('Email must include an @ and a period')">
                     </div>
                     <div class="form-group">
                         <label for="ConsumerPhone">Phone Number</label>
-                        <input class="form-control" type="tel" name="ConsumerPhone">
+                        <input class="form-control" type="tel" class="phone" data-mask="000-000-0000" name="ConsumerPhone" oninvalid="this.setCustomValidity('Please enter numbers only')">
                     </div>
                     <div class="form-group">
                         <label for="ConsumerCity">City</label>
@@ -283,11 +323,21 @@
                     </div>
                     <div class="form-group">
                         <label for="ConsumerPostalCode">Postal Code</label>
-                        <input class="form-control" name="ConsumerPostalCode" type="number">
+                        <input class="form-control" name="ConsumerPostalCode" type="number" oninvalid="this.setCustomValidity('Please enter numbers only')">
+                    </div>
+                    <div class="form-group">
+                        <label for="ConsumerCountry">Country</label>
+                        <select id="selection" name="ConsumerCountry" class="form-selector form-control">
+                            <option value="" class="uc" disabled selected>Please Select...</option>
+                            <option value="issue" class="uc">United States</option>
+                            <option value="question" class="uc">Canada</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-lg btn-block uc">Submit Feedback</button>
                     </div>
+                    <div class="success text-success" style="display: none"></div>
+                    <div class="error text-danger" style="display: none"></div>
                 </form>
             </div>
         </div>
@@ -295,12 +345,16 @@
         <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.12/jquery.mask.min.js"></script>
         <script type="text/javascript">
             $(document).ready(function (e) {
-                // DATEPICKER
-                $('#BestBy').datepicker({format: 'mm/dd/yyyy'}).on('changeDate', function(e) {$('#eventForm').formValidation('revalidateField', 'date');});
+                // Phone Mask
+                $('.phone').mask('0000-0000');
 
-                // FORM TOGGLE
+                // Date/Time Picker
+                $('#BestBy').datepicker({format: 'dd-mm-yyyy'}).on('changeDate', function(e) {$('#eventForm').formValidation('revalidateField', 'date');});
+
+                // Form Toggle
                 $('#selection').on('change', function () {
                     if (this.value == 'issue') {
                         $("#issueGroup").show();
@@ -344,11 +398,13 @@
                         data: $(this).serialize(),
                         cache: false,
                         success: function (data) {
-                            console.log('Submission was successful');
+                            $('.success').show();
+                            $('.success').append("Submission was successful.");
                             console.log(data);
                         },
                         error: function (data) {
-                            console.log('An error occurred');
+                            $('.error').show();
+                            $('.error').append("We're having difficulty submitting your information. Please try again a little later. If this error continues, please contact customer service.");
                             console.log(data);
                         },
                     });
