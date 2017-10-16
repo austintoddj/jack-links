@@ -3,7 +3,7 @@
 // Web Service URL
 $url = 'https://full-jck.cs23.force.com/CSRWebService/services/apexrest/CSRWS';
 
-// Initialize the array
+// Initialize an empty data array
 $data = [];
 
 // Add the $_POST data to the array
